@@ -6,35 +6,35 @@
  *
  * Return: number of elements in the freed list
  */
-size_t free_listint_safe(listint_t **z)
+size_t free_listint_safe(listint_t **h)
 {
 	size_t len = 0;
 	int diff;
 	listint_t *temp;
 
-	if (!h || !*z)
+	if (!h || !*h)
 		return (0);
 
-	while (*z)
+	while (*h)
 	{
-		diff = *z - (*z)->next;
+		diff = *h - (*h)->next;
 		if (diff > 0)
 		{
-			temp = (*z)->next;
-			free(*z);
-			*z = temp;
+			temp = (*h)->next;
+			free(*h);
+			*h = temp;
 			len++;
 		}
 		else
 		{
-			free(*z);
-			*z = NULL;
+			free(*h);
+			*h = NULL;
 			len++;
 			break;
 		}
 	}
 
-	*z = NULL;
+	*h = NULL;
 
 	return (len);
 }
